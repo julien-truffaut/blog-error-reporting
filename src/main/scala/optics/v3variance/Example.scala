@@ -26,13 +26,16 @@ object Example extends App {
     ))
   ))
 
+  def property(key: String): Optional[ConfigFailure, Config, Config] =
+    obj >>> index(key)
 
   def userAge(usrername: String): Optional[ConfigFailure, Config, Int] =
-    (obj >>> index(usrername) >>> obj >>> index("age") >>> int)
+    (property(usrername) >>> property("age") >>> int)
 
-  println(userAge("john").getOrError(config))
-  println(userAge("marie").getOrError(config))
-  println(userAge("bob").getOrError(config))
+  println((property("john" ) >>> property("age") >>> int).getOrError(config))
+  println((property("marie") >>> property("age") >>> int).getOrError(config))
+  println((property("bob"  ) >>> property("age") >>> int).getOrError(config))
+  println((property("john"  ) >>> property("age") >>> int).replace(10, config))
 
 
 }

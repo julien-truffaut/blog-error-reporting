@@ -16,11 +16,11 @@ object Example extends App {
         else from
     }
 
+//  def property(key: String): Optional[ConfigFailure, Config, Config] =
+//    obj >>> index(key)
+
   println(int.getOrError(IntConfig(12)))
   println(int.getOrError(StringConfig("hello")))
   println(index("users").getOrError(Map.empty))
-
-
-//  (obj >>> index("john") >>> obj >>> index("age") >>> int)
 
 }
