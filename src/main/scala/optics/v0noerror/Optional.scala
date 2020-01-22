@@ -1,4 +1,4 @@
-package noerror
+package optics.v0noerror
 
 import scala.annotation.alpha
 
@@ -17,18 +17,4 @@ trait Optional[From, To] { self =>
           .map(other.replace(to, _))
           .fold(from)(self.replace(_, from))
     }
-}
-
-object Optional {
-
-  def index[K, V](key: K): Optional[Map[K, V], V] =
-    new Optional[Map[K, V], V] {
-      def getOption(from: Map[K, V]): Option[V] =
-        from.get(key)
-
-      def replace(to: V, from: Map[K, V]): Map[K, V] =
-        if(from.contains(key)) from + (key -> to)
-        else from
-    }
-
 }
